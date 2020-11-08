@@ -3,25 +3,13 @@
 namespace App\Seeds;
 
 use App\Components\Migration;
-
+use App\Models\User;
 
 class AddUsers extends Migration
 {
-
-    public static function AddUsers($firstname, $lastname, $email, $password)
+    public static function AddUsers()
     {
-        $instance = new self();
-
-        // sql to add information in table
-        $sql="INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
-        $result=$instance->con->prepare($sql);
-        $result->bindParam(':firstname', $firstname, PDO::PARAM_STR);
-        $result->bindParam(':lastname', $lastname, PDO::PARAM_STR);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', $password, PDO::PARAM_STR);
-
-        return $result->execute(); //выполнение запроса
-
-
+        User::create('Yana','Hosroshkova', 'yana@mail.ru','1234');
+        User::create('Muhammed','Abdullayev', 'mukhahmmed@mail.ru','1234');
     }
 }

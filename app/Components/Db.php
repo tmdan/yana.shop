@@ -18,7 +18,7 @@ class Db
     {
         //PDO
         if (self::$connect === null) {
-            self::$connect = new PDO('mysql:dbname=shop;host=127.0.0.1', 'root', '');
+            self::$connect = new PDO('mysql:dbname=shop;host=127.0.0.1', 'root', 'root');
             self::$connect->exec("set names utf8");
         }
 

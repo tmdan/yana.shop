@@ -6,13 +6,18 @@ use App\Models\User;
 
 class UserController
 {
-    public function actionList ()
+    public function actionList()
     {
-        echo "вывод всех пользователей<br>";
-        $usersList = User::all();
+        $array = ["firstname" => "yana", "lastname" => "something", "email" => "ssfsf", "password", "phone" => "3554454454654"];
 
-        print_r($usersList);
-        //return true;
+        $errors = [];
+
+        if (!User::checkPhone($array['phone'])) $errors[] = "Введи норм номер бро";
+
+        if(empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'],'sdfsdf');
+
+
+        require "./app/View/users/list.php";
     }
 
 }

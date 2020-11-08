@@ -15,7 +15,7 @@ class Migration
     }
 
 
-    public function tableExist($name): bool
+    public function tableExist($name)
     {
         $results = $this->con->query("SHOW TABLES LIKE '$name'");
 

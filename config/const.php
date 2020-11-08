@@ -1,10 +1,4 @@
 <?php
-	
-	/*
-	*  Глобальные константы
-	* 
-	*
-	*/
 
 	//common
 	define('ROOT', $_SERVER['DOCUMENT_ROOT']); //корень сайта
@@ -21,8 +15,6 @@
 	define('VIEW_ROOT_ADMIN', ROOT."/views/admin/"); //папка с дополнениями для сайта
 	define('MODELS_ROOT_ADMIN', ROOT."/models/admin/"); //папка с моделями для системы
 
-	
-	
 	//server_page
 	define('NOTADMIN', SITE_URL."/notadmin"); //страница 423 - доступ запрещен - только для админов
 	define('ACCESSDENIED', SITE_URL."/accessdenied"); //страница 403- доступ запрещен - только для пользователей

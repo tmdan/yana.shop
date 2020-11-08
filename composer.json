@@ -17,8 +17,12 @@
   },
   "scripts": {
     "create-user-table": "App\\Migrations\\CreateUserTable::up",
+    "seed-users": "App\\Seeds\\AddUsers::AddUsers",
     "migrate": [
       "@composer create-user-table"
+    ],
+    "seed": [
+      "@composer seed-users"
     ]
   }
 }
