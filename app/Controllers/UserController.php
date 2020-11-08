@@ -17,7 +17,7 @@ class UserController
         if(empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'],'sdfsdf');
 
 
-        require "./app/View/users/list.php";
+        require "./app/views/users/list.php";
     }
 
 }
