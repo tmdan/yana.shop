@@ -9,7 +9,8 @@ use PDO;
  * Class User
  * @package App\Models
  */
-class User {
+class User
+{
 
     /**
      * @return array
@@ -32,8 +33,8 @@ class User {
     {
         $connect = (new Db)->getConnection();
 
-        $sql="INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
-        $result=$connect->prepare($sql);
+        $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+        $result = $connect->prepare($sql);
         $result->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $result->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
@@ -44,11 +45,14 @@ class User {
 
 
     //валидация имени пользвателя
-    public static function checkFirstName($reg_name){
+    public static function checkFirstName($reg_name)
+    {
         return preg_match('/^[а-яА-ЯёЁa-zA-Z]{2,15}$/u', $reg_name);
     }
 
-    public static function checkPhone($phone){
+
+    public static function checkPhone($phone)
+    {
         return preg_match('/^375[25|44|29|33][0-9]{7}$/', $phone);
     }
 }
