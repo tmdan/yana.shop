@@ -15,13 +15,14 @@ class UserController
 
 //        if (!User::checkPhone($array['phone'])) $errors[] = "Введи норм номер бро";
 
-        if(empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'],'sdfsdf');
+        if (empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'], 'sdfsdf');
 
-        require "./views/users/list.php";
+        require VIEW_ROOT . "/users/list.php";
     }
 
 
-    public function create(){
+    public function create()
+    {
         var_dump("dfsdf");
     }
 }
