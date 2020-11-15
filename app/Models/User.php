@@ -32,6 +32,10 @@ class User
      */
     public static function create($firstname, $lastname, $email, $password)
     {
+        //action
+        //name
+        var_dump($_POST);
+
         $connect = Db::getConnection();
 
         $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
