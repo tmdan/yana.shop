@@ -23,6 +23,6 @@ class UserController
 
     public function create()
     {
-        var_dump("dfsdf");
+        require VIEW_ROOT . "users/list.php";
     }
 }
