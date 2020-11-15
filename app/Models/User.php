@@ -9,14 +9,16 @@ use PDO;
  * Class User
  * @package App\Models
  */
-class User {
+class User
+{
 
     /**
      * @return array
      */
     public static function all()
     {
-        $connect = (new Db)->getConnection();
+        $connect = Db::getConnection();
+
         $results = $connect->query("SELECT id, firstname, lastname, email FROM user");
         return $results->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -30,10 +32,10 @@ class User {
      */
     public static function create($firstname, $lastname, $email, $password)
     {
-        $connect = (new Db)->getConnection();
+        $connect = Db::getConnection();
 
-        $sql="INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
-        $result=$connect->prepare($sql);
+        $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+        $result = $connect->prepare($sql);
         $result->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $result->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
@@ -44,50 +46,50 @@ class User {
 
 
     //валидации
-    public static function checkName($reg_name){
+    public static function checkName($reg_name)
+    {
         return preg_match('/^[а-яА-ЯёЁa-zA-Z]{2,15}$/u', $reg_name);
     }
 
-    public static function checkEmail($email){
-        return preg_match('/^[a-z0-9-_]{2,10}@[a-z]{3,6}.[a-z]{2,3}$/u', $email);
-    }
-
-    public static function checkPassword($password){
-        return preg_match('/[a-zA-Z0-9]{5,25}/u', $password);
-    }
-
-    public static function select($email, $password)
+    public static function checkEmail($email)
     {
-        $connect = (new Db)->getConnection();
+        return preg_match('/^[a-z0-9-_]{2,10}@[a-z]{3,6}.[a-z]{2,3}$/', $email);
+    }
 
-        $sql = 'SELECT * FROM user WHERE email = :email AND password = :password';
-        $result=$connect->prepare($sql);
+    public static function checkPassword($password)
+    {
+        return preg_match('/[a-zA-Z0-9]{5,25}/', $password);
+    }
+
+    public static function selectByEmail($email)
+    {
+        $connect = Db::getConnection();
+
+        $sql = 'SELECT * FROM user WHERE email = :email';
+        $result = $connect->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', $password, PDO::PARAM_STR);
         $result->execute();
 
-        $user = $result->fetch();
-        return $user['id'];
+        return $result->fetch();
     }
 
 
-    public static function update ($firstname, $lastname, $email, $password)
+    public static function update($firstname, $lastname, $email, $password)
     {
-        $connect = (new Db)->getConnection();
+        $connect = Db::getConnection();
 
-        $user = User::select($email, $password);
+        $user = User::selectByEmail($email);
 
-        $sql = 'UPDATE user SET firstname = :firstname, lastname = :lastname, email = :email, password = :password WHERE id = $user;';
-        $result=$connect->prepare($sql);
+        $sql = 'UPDATE user SET firstname = :firstname, lastname = :lastname, email = :email, password = :password WHERE id = :user_id;';
+        $result = $connect->prepare($sql);
         $result->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $result->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
         $result->bindParam(':password', $password, PDO::PARAM_STR);
+        $result->bindParam(':user_id', $user['id'], PDO::PARAM_INT);
 
         return $result->execute();
     }
-
-
 
 
 }

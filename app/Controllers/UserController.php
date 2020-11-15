@@ -6,13 +6,14 @@ use App\Models\User;
 
 class UserController
 {
-    public function actionList()
+
+    public function list()
     {
         $array = ["firstname" => "yana", "lastname" => "something", "email" => "ssfsf", "password", "phone" => "3554454454654"];
 
         $errors = [];
 
-        if (!User::checkPhone($array['phone'])) $errors[] = "Введи норм номер бро";
+//        if (!User::checkPhone($array['phone'])) $errors[] = "Введи норм номер бро";
 
         if(empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'],'sdfsdf');
 
@@ -20,4 +21,8 @@ class UserController
         require "./views/users/list.php";
     }
 
+
+    public function create(){
+        var_dump("dfsdf");
+    }
 }

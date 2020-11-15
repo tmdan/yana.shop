@@ -58,37 +58,20 @@
                     $segments = explode('/', $internalRoute); //получим массив из двух элементов [0]-контроллер, [1] - акшен
                     $controllerName = array_shift($segments) . 'Controller';//формируем имя контроллера. Функция array_shift — Извлекает первый элемент массива, и возвращает его  сокращая размер array на один элемент.
                     $controllerName = ucfirst($controllerName);//формируем имя контроллера. Функция ucfirst — Преобразует первый символ строки в верхний регистр
-                    //
+
 
                     //формируем имя экшена
-                    $actionName = 'action' . ucfirst(array_shift($segments));
-                    //
+                    $actionName =  array_shift($segments);
 
                     //в массиве $segments остались только параменты которые мы можем передать в функцию action
                     $parameters = $segments;//массив с параметрами
-                    //var_dump($parameters);
-                    //
-
 
                     //подключить файл класса контроллера
-
-                    $controllerFile = CONTROLLERS_ROOT . $controllerName . '.php';
-                    $admin = CONTROLLERS_ROOT_ADMIN . $controllerName . '.php';
-                    var_dump($controllerFile);
-
-
-                    /*передача управления>>>подключаем файл*/
-                    if (file_exists($controllerFile)) {
-                        include($controllerFile);
-                    } else if (file_exists($admin)) {
-                        include($admin);
-                    }//контроллеры административного раздела сайта
-                    //
+                    $controllerFile = "App\\Controllers\\" . $controllerName;
 
                     //cоздаем экземаляр класса контроллера и запускаем нужный action
-                    $controllerObject = new $controllerName;
+                    $controllerObject = new $controllerFile;
 
-                    var_dump($controllerName);
 
                     /*передача управдения>>>функция*/
                     $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
