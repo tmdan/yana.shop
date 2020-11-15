@@ -17,7 +17,7 @@ class UserController
 
         if (empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'], 'sdfsdf');
 
-        require VIEW_ROOT . "/users/list.php";
+        require VIEW_ROOT . "users/list.php";
     }
 
 
