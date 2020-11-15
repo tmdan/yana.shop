@@ -13,13 +13,17 @@ class Db
 {
     static $connect = null;
 
-
     public static function getConnection()
     {
+
+        $paramsPath = ROOT . '/config/db_params.php';
+        $params = include($paramsPath);
+
         //PDO
         if (self::$connect === null) {
-            self::$connect = new PDO('mysql:dbname=shop;host=127.0.0.1', 'root', 'root');
-            self::$connect->exec("set names utf8");
+            $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
+            $db = new PDO($dsn, $params['user'], $params['password']);
+            $db->exec("set names utf8");
         }
 
         return self::$connect;

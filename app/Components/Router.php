@@ -74,9 +74,10 @@
 
                     $controllerFile = CONTROLLERS_ROOT . $controllerName . '.php';
                     $admin = CONTROLLERS_ROOT_ADMIN . $controllerName . '.php';
+                    var_dump($controllerFile);
 
 
-                    /*передача управдения>>>подключаем файл*/
+                    /*передача управления>>>подключаем файл*/
                     if (file_exists($controllerFile)) {
                         include($controllerFile);
                     } else if (file_exists($admin)) {
@@ -86,6 +87,8 @@
 
                     //cоздаем экземаляр класса контроллера и запускаем нужный action
                     $controllerObject = new $controllerName;
+
+                    var_dump($controllerName);
 
                     /*передача управдения>>>функция*/
                     $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
