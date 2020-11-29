@@ -9,20 +9,35 @@ class UserController
 
     public function list()
     {
-        $array = ["firstname" => "yana", "lastname" => "something", "email" => "ssfsf", "password", "phone" => "3554454454654"];
-
-        $errors = [];
-
-//        if (!User::checkPhone($array['phone'])) $errors[] = "Введи норм номер бро";
-
-        if (empty($errors)) User::create($array['$array'], $array['lastname'], $array['email'], 'sdfsdf');
-
+        $usersList = User::all();
         require VIEW_ROOT . "users/list.php";
     }
 
 
     public function create()
     {
-        require VIEW_ROOT . "users/list.php";
+        if (isset($_POST['submit']))
+        {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $phone = $_POST['phone'];
+        }
+
+        $errors = [];
+        if (!User::checkName($firstname)) $errors[] = "Имя введено некорректно";
+        if (!User::checkName($lastname)) $errors[] = "Фамилия введена некорректно";
+        if (!User::checkEmail($email)) $errors[] = "Электронная почта введена некорректно";
+        if (!User::checkPassword($password)) $errors[] = "Пароль введен некорректно";
+        if (!User::checkPhone($phone)) $errors[] = "Телефон введен некорректно";
+
+
+        if (empty($errors))
+        {
+            User::create($firstname, $lastname, $email, $password, $phone);
+        }
+
+        require VIEW_ROOT . "users/login.php";
     }
 }

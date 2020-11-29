@@ -11,11 +11,6 @@
 
         private $routes; //массив где хранятся все маршруты
 
-        public static function check ()
-        {
-            echo "it's ok!";
-        }
-
         //метод конструктор
         public function __construct()
         {
@@ -73,7 +68,7 @@
                     $controllerObject = new $controllerFile;
 
 
-                    /*передача управдения>>>функция*/
+                    /*передача управления>>>функция*/
                     $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
                     //$controllerObject->$actionName($parameters); страый способ
 
