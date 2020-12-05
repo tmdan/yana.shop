@@ -10,6 +10,7 @@ class CreateUserTable extends Migration
 
     public static function up()
     {
+
         $instance = new self();
 
         // sql to create table
@@ -17,9 +18,8 @@ class CreateUserTable extends Migration
             "id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY," .
             "firstname VARCHAR(30) NOT NULL," .
             "lastname VARCHAR(30) NOT NULL," .
-            "email VARCHAR(50) NOT NULL," .
+            "email VARCHAR(50) NOT NULL UNIQUE," .
             "password VARCHAR(10) NOT NULL" .
-            " UNIQUE (email)" .
             ")";
 
         if (!$instance->tableExist('user')) {
@@ -34,6 +34,7 @@ class CreateUserTable extends Migration
         } else {
             echo "Table user already exist" . "\n";
         }
+
 
     }
 }

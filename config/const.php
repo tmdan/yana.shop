@@ -2,6 +2,7 @@
 
 	//common
 	define('ROOT', $_SERVER['DOCUMENT_ROOT']); //корень сайта
+
 	define('SITE_URL', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME']);//адресс сайта	
 	define('CONFIG_ROOT', ROOT."/config/"); //папка с настройками сайта
 	define('COMPONENTS_ROOT', ROOT."/app/components/"); //папка с дополнениями для сайта
@@ -17,4 +18,4 @@
 
 	//server_page
 	define('NOTADMIN', SITE_URL."/notadmin"); //страница 423 - доступ запрещен - только для админов
-	define('ACCESSDENIED', SITE_URL."/accessdenied"); //страница 403- доступ запрещен - только для пользователей
+	define('ACCESSDENIED', SITE_URL."/access-denied"); //страница 403- доступ запрещен - только для пользователей

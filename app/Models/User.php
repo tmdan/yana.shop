@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Components\Db;
+use App\Components\Session;
 use PDO;
 
 /**
@@ -19,7 +20,7 @@ class User
     {
         $connect = Db::getConnection();
 
-        $results = $connect->query("SELECT id, firstname, lastname, email, phone FROM user");
+        $results = $connect->query("SELECT id, firstname, lastname, email FROM user");
         return $results->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -36,9 +37,13 @@ class User
 
     public static function checkPassword($password)
     {
-        return preg_match('/[a-zA-Z0-9]{5,25}/', $password);
+        return preg_match('/[a-zA-Z0-9]{5,10}/', $password);
     }
 
+    /**
+     * @param $phone
+     * @return false|int
+     */
     public static function checkPhone($phone)
     {
         return preg_match('/^\+375[29,33,44,25]{2,2}[0-9]{7,7}$/', $phone);
@@ -51,19 +56,17 @@ class User
      * @param $password
      * @return bool
      */
-    public static function create($firstname, $lastname, $email, $password, $phone)
+    public static function create($firstname, $lastname, $email, $password)
     {
-
         $connect = Db::getConnection();
-
-        $sql = "INSERT INTO user (firstname, lastname, email, password, phone) VALUES (:firstname, :lastname, :email, :password, :phone)";
+        $sql = "INSERT INTO user (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
         $result = $connect->prepare($sql);
         $result->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $result->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
         $result->bindParam(':password', $password, PDO::PARAM_STR);
-        $result->bindParam(':phone', $phone, PDO::PARAM_STR);
-
+        //$result->bindParam(':phone', $phone, PDO::PARAM_STR);
+        //Если запрос вернул false - Значит появилась ошибка, используя метод errorInfo который возращает нам массив, берем 3 ячейку массива где содержиться сообщение об ошибки и выводим ее
         return $result->execute(); //выполнение запроса
     }
 
@@ -79,6 +82,13 @@ class User
         $result->execute();
 
         return $result->fetch();
+    }
+
+
+    public function forbidden(){
+        if(!Session::get('user')){
+            redirect(403);
+        };
     }
 
 

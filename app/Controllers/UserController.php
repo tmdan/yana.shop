@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Components\Session;
 use App\Models\User;
 
 class UserController
@@ -16,8 +17,7 @@ class UserController
 
     public function create()
     {
-        if (isset($_POST['submit']))
-        {
+        if (isset($_POST['submit'])) {
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
@@ -33,11 +33,14 @@ class UserController
         if (!User::checkPhone($phone)) $errors[] = "Телефон введен некорректно";
 
 
-        if (empty($errors))
-        {
-            User::create($firstname, $lastname, $email, $password, $phone);
+        if (empty($errors)) {
+            $user = User::create($firstname, $lastname, $email, $password);
+            Session::set('user', $user['id']);
         }
+
 
         require VIEW_ROOT . "users/login.php";
     }
+
+
 }
